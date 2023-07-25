@@ -1,0 +1,4 @@
+# api_url = "https://api.weather.gov/"
+# api_url = "https://api.weather.gov/points/39.7456,-97.0892"
+# api_url = "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&hourly=temperature_2m"
+# api_url = f"https://api.openweathermap.org/data/3.0/onecall?appid=""b1d789570430987cbda091a94f1c840d"
