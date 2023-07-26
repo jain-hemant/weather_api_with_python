@@ -24,7 +24,7 @@ class Location:
 class Weather:
     def __init__(self):
         self.api_city = ""
-    def set_weather(self,cord_xy,api_key):
+    def set_weather(self,city,cord_xy,api_key):
         # print(cord_xy[0])
         # print(cord_xy[1])
         self.api_city = ""
@@ -32,16 +32,16 @@ class Weather:
         response = requests.get(self.api_weather)
         dic = dict(response.json())
         get_temp = dic['main']
-        temp_in_cel = get_temp['temp']
-
-        print(temp_in_cel)
+        kelvin = get_temp['temp']
+        celcius = kelvin - 273.15
+        print(f"The tempreture of {city} {round(celcius,2)}℃")
 
 
 city = input("Enter City Name : ")
 obj_location = Location()
 cord_xy = obj_location.set_location(city)
 obj_weather = Weather()
-obj_weather.set_weather(cord_xy,obj_location.api_key)
+obj_weather.set_weather(city,cord_xy,obj_location.api_key)
 
 
 # print(*response.json())
