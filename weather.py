@@ -1,3 +1,4 @@
+import os
 import requests
 class Location:
     api_city = ""
@@ -15,11 +16,13 @@ class Location:
         response = requests.get(self.api_city)
         self.dic = dict(*response.json())
         if not self.dic:
+            os.system("cls")
             print("Please Enter Valid City Name! ")
+            return False
         else:
             lat = self.dic['lat']
             long = self.dic['lon']
-        return [lat,long]
+            return [lat,long]
 
 class Weather:
     def __init__(self):
@@ -34,14 +37,29 @@ class Weather:
         get_temp = dic['main']
         kelvin = get_temp['temp']
         celcius = kelvin - 273.15
-        print(f"The tempreture of {city} {round(celcius,2)}℃")
+        os.system("cls")        
+        print(f"The tempreture of {city} {round(celcius,2)}°C\n\n")
 
-
-city = input("Enter City Name : ")
-obj_location = Location()
-cord_xy = obj_location.set_location(city)
-obj_weather = Weather()
-obj_weather.set_weather(city,cord_xy,obj_location.api_key)
+flag = True
+while flag:
+    city = input("Enter City Name : ")
+    os.system("cls")
+    print("\n Please Wait...\n")
+    obj_location = Location()
+    cord_xy = obj_location.set_location(city)    
+    # flag = False
+    # print(cord_xy)
+    if cord_xy:
+        obj_weather = Weather()
+        obj_weather.set_weather(city,cord_xy,obj_location.api_key)
+        again = input("Do you want to continue? (Y/N) : \n\n")
+        again = again.upper()
+        if again == "Y":
+            flag = True
+        else:
+            flag = False        
+    else:
+        flag = True
 
 
 # print(*response.json())
